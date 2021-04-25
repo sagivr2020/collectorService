@@ -1,0 +1,53 @@
+service: serverless-flask
+
+plugins:
+  - serverless-python-requirements
+  - serverless-wsgi
+  - serverless-plugin-epsagon
+custom:
+ wsgi:
+   app: app.app
+   packRequirements: false
+ pythonRequirements:
+   dockerizePip: true
+ epsagon:
+    token='3b6fb738-df8a-4de2-9de2-afbadc80718e'
+    app_name='server app'
+
+provider:
+ name: aws
+ runtime: python3.8
+ stage: dev
+ region: us-east-1
+ environment:
+     DB_HOST: 'requests.cp2gpjypmsjs.us-east-1.rds.amazonaws.com'
+     DB_TYPE_NAME: 'postgres'
+     DB_USER: 'postgresadmin'
+     DB_PASS: 'Aa123456!'
+     TOKEN: '3b6fb738-df8a-4de2-9de2-afbadc80718e'
+ iamRoleStatements:
+   - Effect: "Allow"
+     Action:
+       - ec2:CreateNetworkInterface
+       - ec2:DescribeNetworkInterfaces
+       - ec2:DeleteNetworkInterface
+       - cloudformation:DescribeStackResource
+     Resource:
+       - "*"
+
+functions:
+ app:
+   handler: app.app
+   events:
+     - http: ANY /
+     - http: 'ANY {proxy+}'
+   vpc:
+     securityGroupIds:
+       - sg-1738a917
+     subnetIds:
+       - subnet-63bfc83c
+       - subnet-7d2b954c
+       - subnet-08e3d945
+       - subnet-60402a06
+       - subnet-8d1d3183
+       - subnet-acddac8d

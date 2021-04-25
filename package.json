@@ -1,0 +1,20 @@
+{
+  "name": "collectorService",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless-plugin-epsagon": "^1.11.0",
+    "serverless-python-requirements": "^5.1.1",
+    "serverless-wsgi": "^1.7.6"
+  },
+  "dependencies": {
+    "epsagon": "^1.109.0"
+  }
+}
